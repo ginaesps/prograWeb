@@ -1,64 +1,64 @@
 var elevador = (function () {
     let pisoUsuario=0;
+    let tuPiso=0;
     let pisoActual=0;
     let edoPuerta=false; // cerrada=false abierta=true
     let cantPisos=5;
 
-    function irPisoUsuario(){//elevador se mueve de pisoActual a pisoUsuario
-        while(pisoActual>pisoUsuario){
-            console.log('piso ${pisoActual--}');
+    this.irPisoUsuario=function(tuPiso){//elevador se mueve de pisoActual a pisoUsuario
+        if(pisoActual>tuPiso){
+            this.bajar();
         }
-        while(pisoActual<pisoUsuario){
-            console.log('piso ${pisoActual++}');
+        else{
+            this.subir();
         }
     }
-    function irA(pisoDestino){//elevador se mueve de pisoUsuario a pisoDestino
-        if(pisoDestino>=0 && pisoDestino<=5){
-            irPisoUsuario();
-            if(pisoUsuario>pisoDestino){
-                bajar();
+    this.irA=function(pisoDestino,tuPiso){//elevador se mueve de pisoUsuario a pisoDestino
+        if(tuPiso<0 || tuPiso>5){
+            console.log('piso actual inexistente')
+        }
+        else if(pisoDestino>=0 && pisoDestino<=5){
+            irPisoUsuario(tuPiso);
+            while(tuPiso>pisoDestino){
+                console.log(`piso ${bajar()}`);
             }
-            else{
-                subir();
+            while(tuPiso<pisoDestino){
+                console.log(`piso ${subir()}`);
             }
             pisoUsuario=pisoDestino;
             pisoActual=pisoDestino;
         }    
     }
-    function subir(){
-        if(pisoDestino<=cantPisos){
-            controlPuerta=false;
-            irPisoUsuario();
-            while(pisoUsuario<pisoDestino){
-                console.log('piso ${pisoActual++}');
-            }
-            abrirPuerta();
-            cerrarPuerta();
+    this.subir=function(){
+        cerrarPuerta();
+        if(pisoActual<cantPisos){
+            // console.log(`piso ${pisoActual++}`);
+            pisoActual++;
         }
     }
-    function bajar(){
-        if(pisoDestino>=0){
-            controlPuerta=false;
-            irPisoUsuario();
-            while(pisoUsuario>pisoDestino){
-                console.log('piso ${pisoActual--}');
-            }
-            abrirPuerta();
-            cerrarPuerta();
-        }
+    this.bajar=function(){
+        cerrarPuerta();
+        if(pisoActual>0){
+            // console.log(`piso${pisoActual--}`);
+            pisoActual--;
+        }        
     }
-    function abrirPuerta(){
+    this.abrirPuerta=function(){
         if(edoPuerta==false)
             edoPuerta=true;
     }
-    function cerrarPuerta(){
+    this.cerrarPuerta=function(){
         if(edoPuerta==true)
             edoPuerta=false;
     }
+    this.estado=function(){ // cuando intento imprimirlo en consola, solo me arroja que es una función
+        console.log(`elevador en piso ${pisoActual} de 5, puerta ${edoPuerta}`);
+    }
     return {
-        abrir:abrirPuerta,
-        cerrar:cerrarPuerta,
-        pisoDestino:irA
+        abrirPuerta:abrirPuerta,
+        cerrarPuerta:cerrarPuerta,
+        irA:irA,
+        estado:estado,
     }
 }) ();
 
