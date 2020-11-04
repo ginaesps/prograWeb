@@ -1,2 +1,2 @@
 let miElevador= require('./module.js');
-console.log(miElevador.irPisoUsuario(3));
+console.log(miElevador.pisoDestino(3));

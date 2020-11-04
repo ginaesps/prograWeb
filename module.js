@@ -1,76 +1,65 @@
-let Elevador = function (menorPiso,mayorPiso) {
-    let menorPiso=menorPiso;
-    let mayorPiso=mayorPiso;
+var elevador = (function () {
     let pisoUsuario=0;
-    let 
+    let pisoActual=0;
+    let edoPuerta=false; // cerrada=false abierta=true
+    let cantPisos=5;
 
-    function 
-}
-
-/*class Elevador {
-    constructor(menorPiso,mayorPiso){
-        this.menorPiso=menorPiso;
-        this.mayorPiso=mayorPiso;
-        if(this.menorPiso<0){
-            this.cantPisos=(this.menorPiso*-1)+this.mayorPiso;
+    function irPisoUsuario(){//elevador se mueve de pisoActual a pisoUsuario
+        while(pisoActual>pisoUsuario){
+            console.log('piso ${pisoActual--}');
         }
-        else{
-            this.cantPisos=this.menorPiso+this.mayorPiso+1; //+1 para considerar PB
-        }
-        this.pisoUsuario=0;
-        this.pisoActual=0;
-        this.edoPuerta=false;// cerrada=false abierta=true
-    }
-    irPisoUsuario(){
-        while(this.pisoActual>this.pisoUsuario){
-            this.pisoActual--;
-        }
-        while(this.pisoActual<this.pisoUsuario){
-            this.pisoActual++;
+        while(pisoActual<pisoUsuario){
+            console.log('piso ${pisoActual++}');
         }
     }
-    irA(pisoDestino){
-        if(this.pisoUsuario>pisoDestino){
-            this.bajar();
-        }
-        else{
-            this.subir();
-        }
-    }
-    subir(){
-        if(this.pisoDestino<=this.mayorPiso){
-            this.controlPuerta=false;
-            this.irPisoUsuario();
-            while(this.pisoUsuario<this.pisoDestino){
-                console.log('piso ${this.pisoActual++}');
+    function irA(pisoDestino){//elevador se mueve de pisoUsuario a pisoDestino
+        if(pisoDestino>=0 && pisoDestino<=5){
+            irPisoUsuario();
+            if(pisoUsuario>pisoDestino){
+                bajar();
             }
-            this.abrirPuerta();
-            this.cerrarPuerta();
-        }
-    }
-    bajar(){
-        if(this.pisoDestino>=this.menorPiso){
-            this.controlPuerta=false;
-            this.irPisoUsuario();
-            while(this.pisoUsuario>this.pisoDestino){
-                console.log('piso ${this.pisoActual--}');
+            else{
+                subir();
             }
-            this.abrirPuerta();
-            this.cerrarPuerta();
+            pisoUsuario=pisoDestino;
+            pisoActual=pisoDestino;
+        }    
+    }
+    function subir(){
+        if(pisoDestino<=cantPisos){
+            controlPuerta=false;
+            irPisoUsuario();
+            while(pisoUsuario<pisoDestino){
+                console.log('piso ${pisoActual++}');
+            }
+            abrirPuerta();
+            cerrarPuerta();
         }
     }
-    abrirPuerta(){
-        if(this.edoPuerta==false)
-            this.edoPuerta=true;
+    function bajar(){
+        if(pisoDestino>=0){
+            controlPuerta=false;
+            irPisoUsuario();
+            while(pisoUsuario>pisoDestino){
+                console.log('piso ${pisoActual--}');
+            }
+            abrirPuerta();
+            cerrarPuerta();
+        }
     }
-    cerrarPuerta(){
-        if(this.edoPuerta==true)
-            this.edoPuerta=false;
+    function abrirPuerta(){
+        if(edoPuerta==false)
+            edoPuerta=true;
     }
-}
+    function cerrarPuerta(){
+        if(edoPuerta==true)
+            edoPuerta=false;
+    }
+    return {
+        abrir:abrirPuerta,
+        cerrar:cerrarPuerta,
+        pisoDestino:irA
+    }
+}) ();
 
-module.exports= {
-    irPisoUsuario: this.irPisoUsuario(),
-    menorPiso: this.menorPiso,
-    mayorPiso: this.mayorPiso
-}*/
+module.exports= elevador; 
