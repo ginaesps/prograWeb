@@ -1,9 +1,9 @@
-var elevador = (function () {
-    let pisoUsuario=0;
+var elevador = function (pisos) {
+    //let pisoUsuario=0;
     //let tuPiso=0;
     let pisoActual=0;
     let edoPuerta=false; // cerrada=false abierta=true
-    let cantPisos=5;
+    let cantPisos=pisos;
 
     /*this.irPisoUsuario=function(tuPiso){//elevador se mueve de pisoActual a pisoUsuario
         if(pisoActual>tuPiso){
@@ -14,28 +14,23 @@ var elevador = (function () {
         }
     }*/
     this.irA=function(pisoDestino){//elevador se mueve de pisoUsuario a pisoDestino
-            //irPisoUsuario(tuPiso);
-            while(tuPiso>pisoDestino){
+            cerrarPuerta();
+            while(pisoActual>pisoDestino){
                 console.log(`piso ${bajar()}`);
             }
-            while(tuPiso<pisoDestino){
+            while(pisoActual<pisoDestino){
                 console.log(`piso ${subir()}`);
             }
-            pisoUsuario=pisoDestino;
-            pisoActual=pisoDestino;    
+        abrirPuerta();
     }
     this.subir=function(){
-        cerrarPuerta();
         if(pisoActual<cantPisos){
-            // console.log(`piso ${pisoActual++}`);
-            return pisoActual++;
+            return ++pisoActual;
         }
     }
     this.bajar=function(){
-        cerrarPuerta();
         if(pisoActual>0){
-            // console.log(`piso${pisoActual--}`);
-            return pisoActual--;
+            return --pisoActual;
         }        
     }
     this.abrirPuerta=function(){
@@ -53,8 +48,8 @@ var elevador = (function () {
         abrirPuerta:abrirPuerta,
         cerrarPuerta:cerrarPuerta,
         irA:irA,
-        estado:estado,
+        estado:estado
     }
-}) ();
+};
 
 module.exports= elevador; 
