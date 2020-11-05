@@ -13,15 +13,15 @@ let elevador = function (pisos) {
             this.subir();
         }
     }*/
-    function irA(pisoDestino){//elevador se mueve de pisoUsuario a pisoDestino
-            cerrarPuerta();
+    this.irA=function(pisoDestino){//elevador se mueve de pisoUsuario a pisoDestino
+            this.cerrarPuerta();
             while(pisoActual>pisoDestino){
                 console.log(`piso ${bajar()}`);
             }
             while(pisoActual<pisoDestino){
                 console.log(`piso ${subir()}`);
             }
-        abrirPuerta();
+        this.abrirPuerta();
     }
     function subir(){
         if(pisoActual<cantPisos){
@@ -42,14 +42,14 @@ let elevador = function (pisos) {
             edoPuerta=false;
     }
     this.estado=function(){ // cuando intento imprimirlo en consola, solo me arroja que es una función
-        return(`elevador en piso ${pisoActual} de 5, puerta ${edoPuerta}`);
+        return(`elevador en piso ${pisoActual} de 5, puerta ${edoPuerta==true?" abierta":" cerrada"}`);
     }
-    return {
+    /*return {
         abrirPuerta:abrirPuerta,
         cerrarPuerta:cerrarPuerta,
         irA:irA,
         estado:estado
-    }
+    }*/
 };
 
 module.exports= elevador; 
