@@ -1,3 +1,4 @@
-let miElevador= require('./module.js');
-console.log(miElevador.irA(4,2));
-// console.log(miElevador.estado);
+let elevador= require('./module.js');
+let miElevador= new elevador(5);
+miElevador.irA(5);
+console.log(miElevador.estado());
