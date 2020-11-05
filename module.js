@@ -1,4 +1,4 @@
-var elevador = function (pisos) {
+let elevador = function (pisos) {
     //let pisoUsuario=0;
     //let tuPiso=0;
     let pisoActual=0;
@@ -13,7 +13,7 @@ var elevador = function (pisos) {
             this.subir();
         }
     }*/
-    this.irA=function(pisoDestino){//elevador se mueve de pisoUsuario a pisoDestino
+    function irA(pisoDestino){//elevador se mueve de pisoUsuario a pisoDestino
             cerrarPuerta();
             while(pisoActual>pisoDestino){
                 console.log(`piso ${bajar()}`);
@@ -23,12 +23,12 @@ var elevador = function (pisos) {
             }
         abrirPuerta();
     }
-    this.subir=function(){
+    function subir(){
         if(pisoActual<cantPisos){
             return ++pisoActual;
         }
     }
-    this.bajar=function(){
+    function bajar(){
         if(pisoActual>0){
             return --pisoActual;
         }        
